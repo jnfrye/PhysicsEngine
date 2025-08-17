@@ -1,6 +1,7 @@
 #pragma once
 
 #include "phys/precision.h"
+#include <ostream>
 
 namespace phys {
 	class Vector3 {
@@ -21,4 +22,9 @@ namespace phys {
 	private:
 		real padding = 0;
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, const Vector3& v) {
+		os << "Vector3(" << v.x << ", " << v.y << ", " << v.z << ")";
+		return os;
+	}
 }
