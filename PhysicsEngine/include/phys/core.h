@@ -2,6 +2,7 @@
 
 #include <ostream>
 #include "phys/precision.h"
+#include "phys/exception.h"
 
 namespace phys {
 	real real_sqrt(real value);
@@ -18,7 +19,7 @@ namespace phys {
 		}
 
 		real magnitude() const {
-			return real_sqrt(x * x + y * y + z * z);
+			return real_sqrt(squareMagnitude());
 		}
 
 		real squareMagnitude() const {
@@ -29,6 +30,8 @@ namespace phys {
 			real mag = magnitude();
 			if (mag > 0) {
 				(*this) *= ((real)1 / mag);
+			} else {
+				PHYS_THROW_RUNTIME_ERROR("Cannot normalize zero vector");
 			}
 		}
 
