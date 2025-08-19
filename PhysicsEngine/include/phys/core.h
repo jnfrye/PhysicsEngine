@@ -12,18 +12,27 @@ namespace phys {
 		Vector3() : x(0), y(0), z(0) {}
 		Vector3(real x, real y, real z) : x(x), y(y), z(z) {}
 
-		void invert() {
-			x = -x;
-			y = -y;
-			z = -z;
+		Vector3 operator*(real scalar) const {
+			return Vector3(x * scalar, y * scalar, z * scalar);
 		}
 
-		real magnitude() const {
-			return real_sqrt(squareMagnitude());
+		Vector3& operator*=(real scalar) {
+			x *= scalar;
+			y *= scalar;
+			z *= scalar;
+			return *this;
+		}
+
+		void invert() {
+			(*this) *= -1;
 		}
 
 		real squareMagnitude() const {
 			return x * x + y * y + z * z;
+		}
+
+		real magnitude() const {
+			return real_sqrt(squareMagnitude());
 		}
 
 		void normalize() {
@@ -35,13 +44,6 @@ namespace phys {
 			}
 		}
 
-		Vector3 operator*=(real scalar) {
-			x *= scalar;
-			y *= scalar;
-			z *= scalar;
-			return *this;
-		}
-
 		real x;
 		real y;
 		real z;
@@ -51,7 +53,7 @@ namespace phys {
 	};
 
 	inline real real_sqrt(real value) {
-		return sqrt(value);  // Use the standard sqrt function for simplicity
+		return sqrt(value);
 	}
 
 	inline std::ostream& operator<<(std::ostream& os, const Vector3& v) {

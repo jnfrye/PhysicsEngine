@@ -3,3 +3,5 @@ x64/
 PhysicsEngine/x64/
 *.vcxproj.user
 external/
+Debug/
+Release/
