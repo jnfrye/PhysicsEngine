@@ -74,6 +74,32 @@ namespace phys_tests {
         EXPECT_FLOAT_EQ(v1.z, 3.0f);
     }
 
+    TEST(Vector3Test, OperatorUnaryMinusNegatesComponents) {
+        phys::Vector3 v(1, -2, 3);
+        phys::Vector3 result = -v;
+        EXPECT_FLOAT_EQ(result.x, -1.0f);
+        EXPECT_FLOAT_EQ(result.y, 2.0f);
+        EXPECT_FLOAT_EQ(result.z, -3.0f);
+    }
+
+    TEST(Vector3Test, OperatorHadamardProductMultipliesComponents) {
+        phys::Vector3 v1(1, 2, 3);
+        phys::Vector3 v2(4, 5, 6);
+        phys::Vector3 result = v1 * v2;
+        EXPECT_FLOAT_EQ(result.x, 4.0f);
+        EXPECT_FLOAT_EQ(result.y, 10.0f);
+        EXPECT_FLOAT_EQ(result.z, 18.0f);
+    }
+
+    TEST(Vector3Test, OperatorHadamardProductAssignmentMultipliesComponents) {
+        phys::Vector3 v1(1, 2, 3);
+        phys::Vector3 v2(4, 5, 6);
+        v1 *= v2;
+        EXPECT_FLOAT_EQ(v1.x, 4.0f);
+        EXPECT_FLOAT_EQ(v1.y, 10.0f);
+        EXPECT_FLOAT_EQ(v1.z, 18.0f);
+    }
+
 } // namespace phys_tests
 
 int main(int argc, char** argv) {

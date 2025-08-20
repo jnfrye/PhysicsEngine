@@ -45,6 +45,23 @@ namespace phys {
 			z -= vector.z;
 			return *this;
 		}
+
+		Vector3 operator-() const {
+			return Vector3(-x, -y, -z);
+		}
+
+		// In-place Hadamard product (component-wise multiplication)
+		Vector3& operator*=(const Vector3& vector) {
+			x *= vector.x;
+			y *= vector.y;
+			z *= vector.z;
+			return *this;
+		}
+
+		// Hadamard product (component-wise multiplication)
+		Vector3 operator*(const Vector3& vector) const {
+			return Vector3(x * vector.x, y * vector.y, z * vector.z);
+		}
 #pragma endregion
 
 		void invert() {
