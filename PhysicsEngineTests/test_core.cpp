@@ -100,6 +100,47 @@ namespace phys_tests {
         EXPECT_FLOAT_EQ(v1.z, 18.0f);
     }
 
+    TEST(Vector3Test, DotProductWorksCorrectly) {
+        phys::Vector3 v1(1, 0, 0);
+        phys::Vector3 v2(0, 1, 0);
+        phys::Vector3 v3(2, 3, 4);
+        phys::Vector3 v4(5, 6, 7);
+
+        // Orthogonal vectors
+        EXPECT_FLOAT_EQ(v1.dot(v2), 0.0f);
+
+        // Parallel vectors
+        EXPECT_FLOAT_EQ(v1.dot(v1), 1.0f);
+
+        // General case
+        EXPECT_FLOAT_EQ(v3.dot(v4), 2*5 + 3*6 + 4*7);
+    }
+
+    TEST(Vector3Test, CrossProductWorksCorrectly) {
+        phys::Vector3 v1(1, 0, 0);
+        phys::Vector3 v2(0, 1, 0);
+        phys::Vector3 v3(2, 3, 4);
+        phys::Vector3 v4(5, 6, 7);
+
+        // Cross of orthogonal unit vectors
+        phys::Vector3 cross1 = v1.cross(v2);
+        EXPECT_FLOAT_EQ(cross1.x, 0.0f);
+        EXPECT_FLOAT_EQ(cross1.y, 0.0f);
+        EXPECT_FLOAT_EQ(cross1.z, 1.0f);
+
+        // Cross of parallel vectors
+        phys::Vector3 cross2 = v1.cross(v1);
+        EXPECT_FLOAT_EQ(cross2.x, 0.0f);
+        EXPECT_FLOAT_EQ(cross2.y, 0.0f);
+        EXPECT_FLOAT_EQ(cross2.z, 0.0f);
+
+        // General case
+        phys::Vector3 cross3 = v3.cross(v4);
+        EXPECT_FLOAT_EQ(cross3.x, -3.0f);
+        EXPECT_FLOAT_EQ(cross3.y, 6.0f);
+        EXPECT_FLOAT_EQ(cross3.z, -3.0f);
+    }
+
 } // namespace phys_tests
 
 int main(int argc, char** argv) {

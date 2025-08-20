@@ -85,6 +85,18 @@ namespace phys {
 			}
 		}
 
+		real dot(const Vector3& vector) const {
+			return x * vector.x + y * vector.y + z * vector.z;
+		}
+
+		Vector3 cross(const Vector3& vector) const {
+			return Vector3(
+				y * vector.z - z * vector.y,
+				z * vector.x - x * vector.z,
+				x * vector.y - y * vector.x
+			);
+		}
+
 		real x;
 		real y;
 		real z;
