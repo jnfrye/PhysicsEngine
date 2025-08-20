@@ -38,6 +38,42 @@ namespace phys_tests {
         EXPECT_FLOAT_EQ(result.z, 6.0f);
     }
 
+    TEST(Vector3Test, OperatorAdditionAddsComponents) {
+        phys::Vector3 v1(1, 2, 3);
+        phys::Vector3 v2(4, 5, 6);
+        phys::Vector3 result = v1 + v2;
+        EXPECT_FLOAT_EQ(result.x, 5.0f);
+        EXPECT_FLOAT_EQ(result.y, 7.0f);
+        EXPECT_FLOAT_EQ(result.z, 9.0f);
+    }
+
+    TEST(Vector3Test, OperatorAdditionAssignmentAddsComponents) {
+        phys::Vector3 v1(1, 2, 3);
+        phys::Vector3 v2(4, 5, 6);
+        v1 += v2;
+        EXPECT_FLOAT_EQ(v1.x, 5.0f);
+        EXPECT_FLOAT_EQ(v1.y, 7.0f);
+        EXPECT_FLOAT_EQ(v1.z, 9.0f);
+    }
+
+    TEST(Vector3Test, OperatorSubtractionSubtractsComponents) {
+        phys::Vector3 v1(4, 5, 6);
+        phys::Vector3 v2(1, 2, 3);
+        phys::Vector3 result = v1 - v2;
+        EXPECT_FLOAT_EQ(result.x, 3.0f);
+        EXPECT_FLOAT_EQ(result.y, 3.0f);
+        EXPECT_FLOAT_EQ(result.z, 3.0f);
+    }
+
+    TEST(Vector3Test, OperatorSubtractionAssignmentSubtractsComponents) {
+        phys::Vector3 v1(4, 5, 6);
+        phys::Vector3 v2(1, 2, 3);
+        v1 -= v2;
+        EXPECT_FLOAT_EQ(v1.x, 3.0f);
+        EXPECT_FLOAT_EQ(v1.y, 3.0f);
+        EXPECT_FLOAT_EQ(v1.z, 3.0f);
+    }
+
 } // namespace phys_tests
 
 int main(int argc, char** argv) {

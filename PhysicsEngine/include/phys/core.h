@@ -12,6 +12,7 @@ namespace phys {
 		Vector3() : x(0), y(0), z(0) {}
 		Vector3(real x, real y, real z) : x(x), y(y), z(z) {}
 
+#pragma region Operators
 		Vector3 operator*(real scalar) const {
 			return Vector3(x * scalar, y * scalar, z * scalar);
 		}
@@ -22,6 +23,29 @@ namespace phys {
 			z *= scalar;
 			return *this;
 		}
+
+		Vector3 operator+(const Vector3& vector) const {
+			return Vector3(x + vector.x, y + vector.y, z + vector.z);
+		}
+
+		Vector3& operator+=(const Vector3& vector) {
+			x += vector.x;
+			y += vector.y;
+			z += vector.z;
+			return *this;
+		}
+
+		Vector3 operator-(const Vector3& vector) const {
+			return Vector3(x - vector.x, y - vector.y, z - vector.z);
+		}
+
+		Vector3& operator-=(const Vector3& vector) {
+			x -= vector.x;
+			y -= vector.y;
+			z -= vector.z;
+			return *this;
+		}
+#pragma endregion
 
 		void invert() {
 			(*this) *= -1;
