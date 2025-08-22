@@ -141,6 +141,68 @@ namespace phys_tests {
         EXPECT_FLOAT_EQ(cross3.z, -3.0f);
     }
 
+    TEST(Vector3Test, OrthonormalBasis_OnAxes) {
+        phys::Vector3 u(2, 0, 0);
+        phys::Vector3 v(0, 5, 0);
+        auto basis = phys::Vector3::createOrthonormalBasis(u, v);
+
+        const phys::Vector3& uo = basis[0];
+        const phys::Vector3& vo = basis[1];
+        const phys::Vector3& wo = basis[2];
+
+        EXPECT_FLOAT_EQ(uo.x, 1.0f);
+        EXPECT_FLOAT_EQ(uo.y, 0.0f);
+        EXPECT_FLOAT_EQ(uo.z, 0.0f);
+
+        EXPECT_FLOAT_EQ(vo.x, 0.0f);
+        EXPECT_FLOAT_EQ(vo.y, 1.0f);
+        EXPECT_FLOAT_EQ(vo.z, 0.0f);
+
+        EXPECT_FLOAT_EQ(wo.x, 0.0f);
+        EXPECT_FLOAT_EQ(wo.y, 0.0f);
+        EXPECT_FLOAT_EQ(wo.z, 1.0f);
+    }
+
+    TEST(Vector3Test, OrthonormalBasis_PropertiesHoldGeneral) {
+        phys::Vector3 u(1, 2, 3);
+        phys::Vector3 v(-3, 5, 7);
+        auto basis = phys::Vector3::createOrthonormalBasis(u, v);
+
+        const phys::Vector3& uo = basis[0];
+        const phys::Vector3& vo = basis[1];
+        const phys::Vector3& wo = basis[2];
+
+        auto near = [](float a, float b){ return std::abs(a - b) < 1e-5f; };
+
+        // Unit length
+        EXPECT_TRUE(near(uo.magnitude(), 1.0f));
+        EXPECT_TRUE(near(vo.magnitude(), 1.0f));
+        EXPECT_TRUE(near(wo.magnitude(), 1.0f));
+
+        // Orthogonality
+        EXPECT_TRUE(near(uo.dot(vo), 0.0f));
+        EXPECT_TRUE(near(vo.dot(wo), 0.0f));
+        EXPECT_TRUE(near(wo.dot(uo), 0.0f));
+
+        // Right-handed: u x v == w
+        phys::Vector3 cross_uv = uo.cross(vo);
+        EXPECT_TRUE(near(cross_uv.x, wo.x));
+        EXPECT_TRUE(near(cross_uv.y, wo.y));
+        EXPECT_TRUE(near(cross_uv.z, wo.z));
+    }
+
+    TEST(Vector3Test, OrthonormalBasis_ThrowsOnParallel) {
+        phys::Vector3 u(1, 0, 0);
+        phys::Vector3 v(2, 0, 0); // parallel to u
+        EXPECT_THROW({ (void)phys::Vector3::createOrthonormalBasis(u, v); }, std::runtime_error);
+    }
+
+    TEST(Vector3Test, OrthonormalBasis_ThrowsOnZeroU) {
+        phys::Vector3 u(0, 0, 0);
+        phys::Vector3 v(1, 2, 3);
+        EXPECT_THROW({ (void)phys::Vector3::createOrthonormalBasis(u, v); }, std::runtime_error);
+    }
+
 } // namespace phys_tests
 
 int main(int argc, char** argv) {

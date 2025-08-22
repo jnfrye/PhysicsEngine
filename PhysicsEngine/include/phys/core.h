@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <ostream>
 #include "phys/precision.h"
 #include "phys/exception.h"
@@ -95,6 +96,20 @@ namespace phys {
 				z * vector.x - x * vector.z,
 				x * vector.y - y * vector.x
 			);
+		}
+
+		static std::array<Vector3, 3> createOrthonormalBasis(const Vector3& u, const Vector3& v) {
+			Vector3 u_copy = u;
+			u_copy.normalize();
+
+			Vector3 w = u_copy.cross(v);
+			if (w.squareMagnitude() < static_cast<real>(1e-10)) {
+				PHYS_THROW_RUNTIME_ERROR("Cannot create orthonormal basis from parallel vectors");
+			}
+			w.normalize();
+
+			Vector3 v_ortho = w.cross(u_copy);
+			return { u_copy, v_ortho, w };
 		}
 
 		real x;
