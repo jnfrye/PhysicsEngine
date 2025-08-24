@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "phys/core.h"
+#include "phys/precision.h"
 
 namespace phys_tests {
 
@@ -172,23 +173,21 @@ namespace phys_tests {
         const phys::Vector3& vo = basis[1];
         const phys::Vector3& wo = basis[2];
 
-        auto near = [](float a, float b){ return std::abs(a - b) < 1e-5f; };
-
         // Unit length
-        EXPECT_TRUE(near(uo.magnitude(), 1.0f));
-        EXPECT_TRUE(near(vo.magnitude(), 1.0f));
-        EXPECT_TRUE(near(wo.magnitude(), 1.0f));
+        EXPECT_NEAR(uo.magnitude(), 1.0f, PHYS_EPSILON);
+        EXPECT_NEAR(vo.magnitude(), 1.0f, PHYS_EPSILON);
+        EXPECT_NEAR(wo.magnitude(), 1.0f, PHYS_EPSILON);
 
         // Orthogonality
-        EXPECT_TRUE(near(uo.dot(vo), 0.0f));
-        EXPECT_TRUE(near(vo.dot(wo), 0.0f));
-        EXPECT_TRUE(near(wo.dot(uo), 0.0f));
+        EXPECT_NEAR(uo.dot(vo), 0.0f, PHYS_EPSILON);
+        EXPECT_NEAR(vo.dot(wo), 0.0f, PHYS_EPSILON);
+        EXPECT_NEAR(wo.dot(uo), 0.0f, PHYS_EPSILON);
 
         // Right-handed: u x v == w
         phys::Vector3 cross_uv = uo.cross(vo);
-        EXPECT_TRUE(near(cross_uv.x, wo.x));
-        EXPECT_TRUE(near(cross_uv.y, wo.y));
-        EXPECT_TRUE(near(cross_uv.z, wo.z));
+        EXPECT_NEAR(cross_uv.x, wo.x, PHYS_EPSILON);
+        EXPECT_NEAR(cross_uv.y, wo.y, PHYS_EPSILON);
+        EXPECT_NEAR(cross_uv.z, wo.z, PHYS_EPSILON);
     }
 
     TEST(Vector3Test, OrthonormalBasis_ThrowsOnParallel) {

@@ -103,7 +103,7 @@ namespace phys {
 			u_copy.normalize();
 
 			Vector3 w = u_copy.cross(v);
-			if (w.squareMagnitude() < static_cast<real>(1e-10)) {
+			if (w.squareMagnitude() < PHYS_EPSILON) {
 				PHYS_THROW_RUNTIME_ERROR("Cannot create orthonormal basis from parallel vectors");
 			}
 			w.normalize();
