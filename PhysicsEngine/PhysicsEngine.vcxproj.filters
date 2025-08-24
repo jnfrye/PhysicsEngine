@@ -29,5 +29,8 @@
     <ClInclude Include="include\phys\exception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\phys\particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

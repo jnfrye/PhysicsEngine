@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="include\phys\core.h" />
     <ClInclude Include="include\phys\exception.h" />
+    <ClInclude Include="include\phys\particle.h" />
     <ClInclude Include="include\phys\precision.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
