@@ -1,10 +1,11 @@
+
 #include <iostream>
 #include <phys/core.h>
 
 int main() {
 	phys::Vector3 vec(1.0f, 2.0f, 3.0f);
 
-    std::cout << "Initial vector: " << vec << std::endl;
+	std::cout << "Initial vector: " << vec << std::endl;
 	std::cout << "Magnitude: " << vec.magnitude() << std::endl;
 
 	vec.invert();
@@ -15,5 +16,5 @@ int main() {
 	std::cout << "After normalization: " << vec << std::endl;
 	std::cout << "Magnitude: " << vec.magnitude() << std::endl;
 
-    return 0;
+	return 0;
 }
