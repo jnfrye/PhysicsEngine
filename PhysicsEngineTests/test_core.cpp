@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "phys/core.h"
-#include "phys/precision.h"
+#include <phys/core.h>
+#include <phys/precision.h>
 
 namespace phys_tests {
 

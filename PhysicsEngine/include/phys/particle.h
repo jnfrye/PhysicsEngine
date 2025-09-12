@@ -14,6 +14,8 @@ namespace phys {
                  real linearDampingFraction,
                  real inverseMass);
 
+        void Destroy() { shouldBeDestroyed = true; }
+
         // Integrator
         void integrate(real deltaTime);
 
@@ -21,6 +23,7 @@ namespace phys {
         const Vector3& getPosition() const { return position; }
         const Vector3& getVelocity() const { return velocity; }
         const Vector3& getAcceleration() const { return acceleration; }
+        const bool getShouldBeDestroyed() const { return shouldBeDestroyed; }
 
         // Setters
         void setLinearDampingFraction(real damping) {
@@ -44,5 +47,7 @@ namespace phys {
 
         // Store the inverse mass to simplify calculations and support infinite masses; must be >= 0
         real inverseMass{1};
+
+        bool shouldBeDestroyed{ false };
     };
 }

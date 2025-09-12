@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "phys/particle.h"
+#include <phys/particle.h>
 
 namespace phys_tests {
 
